@@ -18,8 +18,9 @@ struct Timeline: View {
         HStack(alignment: .bottom, spacing: 0) {
             ForEach(ticks, id: \.self) { time in
                 HStack(alignment: .bottom, spacing: 0) {
-                    LongTick(text: tickTextFor(msDuration: time))
+                    LongTick(text: "X")
                         .frame(width: smallTickWidth, alignment: .leading)
+
                     ForEach(1..<SMALL_TICKS_COUNT, id: \.self) { time in
                         SmallTick()
                             .frame(width: smallTickWidth, alignment: .leading)
@@ -58,21 +59,6 @@ struct Timeline: View {
 
     var longTickWidth: CGFloat {
         CGFloat(oneLongTickDurationInMs / 1000 * scale)
-    }
-
-    func tickTextFor(msDuration: Double) -> String {
-        let seconds = msDuration / 1000
-
-        let showInSeconds = Int(msDuration) % 1000 == 0
-        let showInSecWithDecimal = Int(msDuration) % 100 == 0
-        if showInSeconds {
-            return "\(Int(seconds))s"
-        } else if showInSecWithDecimal {
-            return String(format: "%3.1fs", seconds)
-        }
-        else {
-            return "\(Int(msDuration))ms"
-        }
     }
 
     var ticks: [Double] {
